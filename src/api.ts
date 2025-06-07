@@ -1,6 +1,6 @@
 import type { Tournament } from './types';
 
-const API_URL = "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export async function getTournaments(): Promise<Tournament[]> {
   const res = await fetch(`${API_URL}/tournaments`);
