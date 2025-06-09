@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 function getCirclePath(cx: number, cy: number, r: number, progress: number) {
@@ -51,9 +53,7 @@ interface TournamentData {
   levels: Level[];
 }
 
-interface Props {
-  apiUrl: string;
-}
+
 
 // Exemplo de mock no React puro
 const mockTournamentData = {
@@ -79,7 +79,7 @@ const mockTournamentData = {
   ],
 };
 
-export default function TourneyClock({ apiUrl }: Props) {
+export default function TourneyClock() {
   const [data, setData] = useState<TournamentData | null>(null);
   const [level, setLevel] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
@@ -87,7 +87,7 @@ export default function TourneyClock({ apiUrl }: Props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(apiUrl);
+        const res = await fetch("/api/tournament");
         if (!res.ok) throw new Error();
         const json = await res.json();
         setData(json);
@@ -101,7 +101,7 @@ export default function TourneyClock({ apiUrl }: Props) {
       }
     };
     fetchData();
-  }, [apiUrl]);
+  }, []);
 
   useEffect(() => {
     if (!data) return;
